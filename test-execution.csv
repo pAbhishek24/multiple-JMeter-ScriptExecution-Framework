@@ -1,0 +1,3 @@
+GitProjectName,ScriptName,Users,Delay,PacingTime,ThinkTime
+AppointmentScheduling,AP_S01_CreateCase.jmx,2,1,2,2
+AppointmentScheduling,AP_S02_CaseSave.jmx,1,1,1,1

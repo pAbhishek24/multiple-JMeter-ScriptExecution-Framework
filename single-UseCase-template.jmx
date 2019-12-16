@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="3.2" jmeter="3.3 r1808647">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="DEBUG" elementType="Argument">
+            <stringProp name="Argument.name">DEBUG</stringProp>
+            <stringProp name="Argument.value">FALSE</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="threadGroupName" elementType="Argument">
+            <stringProp name="Argument.name">threadGroupName</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Automation Framework User Defined Variable" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="DateTime" elementType="Argument">
+            <stringProp name="Argument.name">DateTime</stringProp>
+            <stringProp name="Argument.value">${__P(Test.DateTime)}</stringProp>
+            <stringProp name="Argument.desc">Time stamp for test Execution</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="HostName" elementType="Argument">
+            <stringProp name="Argument.name">HostName</stringProp>
+            <stringProp name="Argument.value">${__P(Test.TargetEnv)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">Targated test environment</stringProp>
+          </elementProp>
+          <elementProp name="AppName" elementType="Argument">
+            <stringProp name="Argument.name">AppName</stringProp>
+            <stringProp name="Argument.value">${__P(Test.ProjectName)}</stringProp>
+            <stringProp name="Argument.desc">Project Name to filter data on grafana dashboard </stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">${HostName}</stringProp>
+        <stringProp name="HTTPSampler.port"></stringProp>
+        <stringProp name="HTTPSampler.protocol">https</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <boolProp name="HTTPSampler.image_parser">true</boolProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.implementation">Java</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout">2000</stringProp>
+        <stringProp name="HTTPSampler.response_timeout">6000</stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="${threadGroupName}" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">${__P(Test.LoopCount)}</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(Test.NumOfUsers)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(Test.RampUpInSec)}</stringProp>
+        <longProp name="ThreadGroup.start_time">1546466194000</longProp>
+        <longProp name="ThreadGroup.end_time">1546466194000</longProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">${__P(Test.DurationInSec)}</stringProp>
+        <stringProp name="ThreadGroup.delay">${__P(Test.StartupDelayInSec)}</stringProp>
+        <boolProp name="ThreadGroup.delayedStart">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Script Configuration Variable" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="PacingTime" elementType="Argument">
+              <stringProp name="Argument.name">PacingTime</stringProp>
+              <stringProp name="Argument.value">${__P(Test.PacingTimeInSec)}000</stringProp>
+              <stringProp name="Argument.desc">The time waited (in mSec) between each iteration.</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="ThinkTime" elementType="Argument">
+              <stringProp name="Argument.name">ThinkTime</stringProp>
+              <stringProp name="Argument.value">${__P(Test.ThinkTimeInSec)}000</stringProp>
+              <stringProp name="Argument.desc">The time waited (in mSec) between each user event.</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="-1227702913">WorkBench</stringProp>
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="-1581054828">${threadGroupName}</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+      </hashTree>
+      <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="${threadGroupName}" enabled="true"/>
+      <hashTree>
+        <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
+          <boolProp name="clearEachIteration">true</boolProp>
+          <boolProp name="useExpires">false</boolProp>
+          <intProp name="maxSize">2000</intProp>
+        </CacheManager>
+        <hashTree/>
+        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Iteration Counter" enabled="true">
+          <stringProp name="CounterConfig.start">1</stringProp>
+          <stringProp name="CounterConfig.end"></stringProp>
+          <stringProp name="CounterConfig.incr">1</stringProp>
+          <stringProp name="CounterConfig.name">ThreadIterationCounter</stringProp>
+          <stringProp name="CounterConfig.format"></stringProp>
+          <boolProp name="CounterConfig.per_user">true</boolProp>
+        </CounterConfig>
+        <hashTree/>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Pace on every Iteration except first" enabled="true">
+          <stringProp name="IfController.condition">${ThreadIterationCounter} &gt; 1</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Check for Debug" enabled="true">
+            <stringProp name="IfController.condition">&quot;${DEBUG}&quot; == &quot;TRUE&quot;</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+          </IfController>
+          <hashTree>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Pacing Loggin Starts" enabled="true">
+              <stringProp name="BeanShellSampler.query">//import org.apache.jmeter.services.FileServer;
+import org.apache.jmeter.services.FileServer;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+SimpleDateFormat formatter = new SimpleDateFormat( &quot;yyyy-MM-dd HH:mm:ss&quot; );
+String datetime = formatter.format( new java.util.Date() );
+
+log.info( &quot;+++ Message : Thread Group: &quot; + ctx.getThreadGroup().getName() + &quot; Thread Number: &quot; + ctx.getThreadNum() + &quot; Pacing Start: &quot; + datetime );</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
+          </hashTree>
+          <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Pacing Action" enabled="true">
+            <intProp name="ActionProcessor.action">1</intProp>
+            <intProp name="ActionProcessor.target">0</intProp>
+            <stringProp name="ActionProcessor.duration">0</stringProp>
+          </TestAction>
+          <hashTree>
+            <UniformRandomTimer guiclass="UniformRandomTimerGui" testclass="UniformRandomTimer" testname="Pacing Timer" enabled="true">
+              <stringProp name="ConstantTimer.delay">${__BeanShell(${PacingTime} /100 * 85)}</stringProp>
+              <stringProp name="RandomTimer.range">${PacingTime}</stringProp>
+            </UniformRandomTimer>
+            <hashTree/>
+          </hashTree>
+          <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Check for Debug" enabled="true">
+            <stringProp name="IfController.condition">&quot;${DEBUG}&quot; == &quot;TRUE&quot;</stringProp>
+            <boolProp name="IfController.evaluateAll">false</boolProp>
+          </IfController>
+          <hashTree>
+            <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="Pacing Loggin Ends" enabled="true">
+              <stringProp name="BeanShellSampler.query">//import org.apache.jmeter.services.FileServer;
+import org.apache.jmeter.services.FileServer;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+SimpleDateFormat formatter = new SimpleDateFormat( &quot;yyyy-MM-dd HH:mm:ss&quot; );
+String datetime = formatter.format( new java.util.Date() );
+
+log.info( &quot;+++ Message : Thread Group: &quot; + ctx.getThreadGroup().getName() + &quot; Thread Number: &quot; + ctx.getThreadNum() + &quot; Pacing Ends: &quot; + datetime );</stringProp>
+              <stringProp name="BeanShellSampler.filename"></stringProp>
+              <stringProp name="BeanShellSampler.parameters"></stringProp>
+              <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+            </BeanShellSampler>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Boiler Plate" enabled="false">
+          <stringProp name="TestPlan.comments">
+
+            /********************************************************************************************
+            Bolier Plate
+            ********************************************************************************************
+
+            Project Name: 
+            Script Name: 
+            Scripted By: 
+            Date Scripted: 
+            Revised By:
+            Revised Date:
+            Modified By:
+            Date of Modification:
+
+
+            *************************************
+
+            Transactions :
+            
+
+ </stringProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Error XML Logger" enabled="true">
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>false</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>true</responseData>
+              <samplerData>true</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>true</responseHeaders>
+              <requestHeaders>true</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <fileName>true</fileName>
+              <hostname>true</hostname>
+              <threadCounts>true</threadCounts>
+              <sampleCount>true</sampleCount>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename">$threadGroupName}-${DateTime}-SamplerError.xml</stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Grafana Listner" enabled="true">
+          <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="influxdbMetricsSender" elementType="Argument">
+                <stringProp name="Argument.name">influxdbMetricsSender</stringProp>
+                <stringProp name="Argument.value">org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="influxdbUrl" elementType="Argument">
+                <stringProp name="Argument.name">influxdbUrl</stringProp>
+                <stringProp name="Argument.value">http://10.1.33.117:8086/write?db=GRAFANA</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="application" elementType="Argument">
+                <stringProp name="Argument.name">application</stringProp>
+                <stringProp name="Argument.value">${AppName}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="measurement" elementType="Argument">
+                <stringProp name="Argument.name">measurement</stringProp>
+                <stringProp name="Argument.value">jmeter</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="summaryOnly" elementType="Argument">
+                <stringProp name="Argument.name">summaryOnly</stringProp>
+                <stringProp name="Argument.value">false</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="samplersRegex" elementType="Argument">
+                <stringProp name="Argument.name">samplersRegex</stringProp>
+                <stringProp name="Argument.value">^[^#_].*</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="percentiles" elementType="Argument">
+                <stringProp name="Argument.name">percentiles</stringProp>
+                <stringProp name="Argument.value">90;95;99</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="testTitle" elementType="Argument">
+                <stringProp name="Argument.name">testTitle</stringProp>
+                <stringProp name="Argument.value">SingleTestPlan-${AppName}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="eventTags" elementType="Argument">
+                <stringProp name="Argument.name">eventTags</stringProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="classname">org.apache.jmeter.visualizers.backend.influxdb.InfluxdbBackendListenerClient</stringProp>
+        </BackendListener>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+    <WorkBench guiclass="WorkBenchGui" testclass="WorkBench" testname="WorkBench" enabled="true">
+      <boolProp name="WorkBench.save">true</boolProp>
+    </WorkBench>
+    <hashTree/>
+  </hashTree>
+</jmeterTestPlan>
